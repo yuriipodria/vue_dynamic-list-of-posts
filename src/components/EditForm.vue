@@ -20,7 +20,10 @@
       const newPost = await editPost(currentPostId, title.value.trim(), body.value.trim());
 
       const index = posts.value.findIndex(item => item.id === currentPostId);
-      posts.value[index] = newPost;
+
+      if (index !== -1) {
+        posts.value[index] = newPost;
+      }
 
       sidebarMode.value = SIDEBAR_MODES.POST;
     } catch (error) {
