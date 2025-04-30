@@ -10,12 +10,18 @@
   };
 
   const { onSubmit } = defineProps({
-    onSubmit: Function,
-    onCancel: Function,
+    onSubmit: {
+      type: Function,
+      default: () => {},
+    },
+    onCancel: {
+      type: Function,
+      default: () => {},
+    },
   });
 
-  const title = defineModel('title');
-  const body = defineModel('body');
+  const title = defineModel('title', { type: String });
+  const body = defineModel('body', { type: String });
   const errors = ref({ ...INITIAL_ERRORS });
 
   const onFormSubmit = async () => {
@@ -41,16 +47,16 @@
   <form @submit.prevent="onFormSubmit">
     <Input
       v-model="title"
+      v-model:error="errors.titleError"
       title="Title"
       placeholder="New title"
-      v-model:error="errors.titleError"
       icon="fa-user"
     />
     <TextArea
       v-model="body"
+      v-model:error="errors.bodyError"
       title="Write Post Body"
       placeholder="Post body"
-      v-model:error="errors.bodyError"
     />
 
     <div class="field is-grouped">

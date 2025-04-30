@@ -4,13 +4,16 @@
   import { editPost } from '@/api/posts';
 
   const { currentPostId } = defineProps({
-    currentPostId: Number,
+    currentPostId: {
+      type: Number,
+      required: true,
+    },
   });
 
-  const posts = defineModel('posts');
-  const sidebarMode = defineModel('sidebarMode');
-  const title = defineModel('title');
-  const body = defineModel('body');
+  const posts = defineModel('posts', { type: Object });
+  const sidebarMode = defineModel('sidebarMode', { type: Object });
+  const title = defineModel('title', { type: Object });
+  const body = defineModel('body', { type: Object });
 
   const onSubmit = async () => {
     try {
@@ -34,6 +37,11 @@
   <div class="content">
     <h2>Edit post</h2>
 
-    <PostForm :onSubmit="onSubmit" :onCancel="onCancel" v-model:title="title" v-model:body="body" />
+    <PostForm
+      v-model:title="title"
+      v-model:body="body"
+      :on-submit="onSubmit"
+      :on-cancel="onCancel"
+    />
   </div>
 </template>

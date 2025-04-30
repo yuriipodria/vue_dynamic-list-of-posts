@@ -2,17 +2,23 @@
   import { deleteComment } from '@/api/comments';
 
   const { comment } = defineProps({
-    comment: Object,
+    comment: {
+      type: Object,
+      required: true,
+    },
   });
 
-  const comments = defineModel('comments');
+  const comments = defineModel('comments', { type: Array });
 
   const onDelete = async () => {
     try {
       await deleteComment(comment.id);
 
-      const index = comments.value.findIndex(item => item.id === comment.id)
-      comments.value.splice(index, 1);
+      const index = comments.value.findIndex(item => item.id === comment.id);
+
+      if (index !== -1) {
+        comments.value.splice(index, 1);
+      }
     } catch (error) {
       console.error(error);
     }

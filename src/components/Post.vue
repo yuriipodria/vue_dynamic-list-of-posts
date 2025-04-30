@@ -8,14 +8,17 @@
   import NewCommentForm from './NewCommentForm.vue';
 
   const { postId } = defineProps({
-    postId: Number,
+    postId: {
+      type: Number,
+      required: true,
+    },
   });
 
-  const posts = defineModel('posts');
-  const currentPostId = defineModel('currentPostId');
-  const sidebarMode = defineModel('sidebarMode');
-  const title = defineModel('title');
-  const body = defineModel('body');
+  const posts = defineModel('posts', { type: Array });
+  const currentPostId = defineModel('currentPostId', { type: Number });
+  const sidebarMode = defineModel('sidebarMode', { type: String });
+  const title = defineModel('title', { type: String });
+  const body = defineModel('body', { type: String });
   const isLoading = ref(true);
   const post = ref(null);
   const comments = ref([]);
@@ -84,18 +87,18 @@
 
     <NewCommentForm
       v-if="isNewCommentFormShown"
-      :post-id="postId"
-      v-model:isNewCommentFormShown="isNewCommentFormShown"
+      v-model:is-new-comment-form-shown="isNewCommentFormShown"
       v-model:comments="comments"
+      :post-id="postId"
     />
 
     <template v-else>
       <template v-if="comments.length > 0">
         <Comment
           v-for="comment of comments"
-          :comment="comment"
           :key="comment.id"
           v-model:comments="comments"
+          :comment="comment"
         />
       </template>
 

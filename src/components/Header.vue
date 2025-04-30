@@ -1,7 +1,7 @@
 <script setup>
   import { removeUser } from '@/utils/userLocalStorageManagement';
 
-  const user = defineModel('user');
+  const user = defineModel('user', { type: Object });
 
   const onLogout = () => {
     removeUser();

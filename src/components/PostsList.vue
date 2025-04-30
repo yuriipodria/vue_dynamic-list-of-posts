@@ -3,13 +3,16 @@
   import PostItem from './PostItem.vue';
 
   defineProps({
-    posts: Array,
+    posts: {
+      type: Array,
+      required: true,
+    },
   });
 
-  const currentPostId = defineModel('currentPostId');
-  const sidebarMode = defineModel('sidebarMode');
-  const title = defineModel('title');
-  const body = defineModel('body');
+  const currentPostId = defineModel('currentPostId', { type: Number });
+  const sidebarMode = defineModel('sidebarMode', { type: String });
+  const title = defineModel('title', { type: String });
+  const body = defineModel('body', { type: String });
 
   const openNewPostForm = () => {
     currentPostId.value = null;
@@ -52,9 +55,9 @@
             <PostItem
               v-for="post of posts"
               :key="post.id"
+              v-model:current-post-id="currentPostId"
+              v-model:sidebar-mode="sidebarMode"
               :post="post"
-              v-model:currentPostId="currentPostId"
-              v-model:sidebarMode="sidebarMode"
             />
           </tbody>
         </table>

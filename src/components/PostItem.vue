@@ -3,18 +3,21 @@
   import { computed } from 'vue';
 
   const { post } = defineProps({
-    post: Object,
+    post: {
+      type: Object,
+      required: true,
+    },
   });
 
-  const currentPostId = defineModel('currentPostId');
-  const sidebarMode = defineModel('sidebarMode');
+  const currentPostId = defineModel('currentPostId', { type: Number });
+  const sidebarMode = defineModel('sidebarMode', { type: String });
 
   const isCurrentPost = computed(() => currentPostId.value === post.id);
 
   const switchPost = () => {
     if (isCurrentPost.value) {
       currentPostId.value = null;
-      sidebarMode.value = SIDEBAR_MODES.NONE
+      sidebarMode.value = SIDEBAR_MODES.NONE;
 
       return;
     }

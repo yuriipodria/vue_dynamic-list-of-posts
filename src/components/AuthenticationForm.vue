@@ -11,7 +11,7 @@
     nameError: ERROR_MESSAGES.NONE,
   };
 
-  const user = defineModel('user');
+  const user = defineModel('user', { type: Object });
 
   const email = ref('');
   const name = ref('');
@@ -75,7 +75,7 @@
 
 <template>
   <section class="container is-flex is-justify-content-center">
-    <form @submit.prevent="onSubmit" class="box mt-5">
+    <form class="box mt-5" @submit.prevent="onSubmit">
       <h1 class="title is-3">Get your userId</h1>
 
       <Input

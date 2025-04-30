@@ -2,18 +2,27 @@
   import { ERROR_MESSAGES } from '@/utils/errorMessages';
 
   defineProps({
-    title: String,
-    placeholder: String,
-    icon: String,
+    title: {
+      type: String,
+      default: '',
+    },
+    placeholder: {
+      type: String,
+      default: '',
+    },
+    icon: {
+      type: String,
+      default: '',
+    },
     disabled: Boolean,
     type: {
       default: 'text',
       type: String,
-    }
+    },
   });
 
-  const error = defineModel('error');
-  const model = defineModel();
+  const error = defineModel('error', { type: String });
+  const model = defineModel({ type: String });
 </script>
 
 <template>
@@ -22,15 +31,15 @@
 
     <div class="control has-icons-left has-icons-right">
       <input
-        @input="error = ERROR_MESSAGES.NONE"
+        :id="title"
         v-model="model"
         :type="type"
         :class="{ 'is-danger': !!error }"
         class="input"
         :name="title"
-        :id="title"
         :placeholder="placeholder"
         :disabled="disabled"
+        @input="error = ERROR_MESSAGES.NONE"
       />
 
       <span v-if="icon" class="icon is-small is-left">

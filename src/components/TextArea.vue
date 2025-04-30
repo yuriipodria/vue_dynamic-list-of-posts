@@ -2,12 +2,18 @@
   import { ERROR_MESSAGES } from '@/utils/errorMessages';
 
   defineProps({
-    title: String,
-    placeholder: String,
+    title: {
+      type: String,
+      default: '',
+    },
+    placeholder: {
+      type: String,
+      default: '',
+    },
   });
 
-  const error = defineModel('error');
-  const model = defineModel();
+  const error = defineModel('error', { type: String });
+  const model = defineModel({ type: String });
 </script>
 
 <template>
@@ -16,13 +22,13 @@
 
     <div class="control">
       <textarea
-        @input="error = ERROR_MESSAGES.NONE"
-        v-model="model"
         :id="title"
+        v-model="model"
         :name="title"
         :placeholder="placeholder"
         :class="{ 'is-danger': !!error }"
         class="textarea"
+        @input="error = ERROR_MESSAGES.NONE"
       ></textarea>
     </div>
 

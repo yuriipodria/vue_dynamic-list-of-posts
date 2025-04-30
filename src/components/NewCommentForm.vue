@@ -4,10 +4,13 @@
   import TextArea from './TextArea.vue';
   import { ref } from 'vue';
   import { ERROR_MESSAGES } from '@/utils/errorMessages';
-import { EMAIL_PATTERN } from '@/utils/emailRegex';
+  import { EMAIL_PATTERN } from '@/utils/emailRegex';
 
   const { postId } = defineProps({
-    postId: Number,
+    postId: {
+      type: Number,
+      required: true,
+    },
   });
 
   const INITIAL_ERRORS = {
@@ -16,8 +19,8 @@ import { EMAIL_PATTERN } from '@/utils/emailRegex';
     bodyError: ERROR_MESSAGES.NONE,
   };
 
-  const isNewCommentFormShown = defineModel('isNewCommentFormShown');
-  const comments = defineModel('comments');
+  const isNewCommentFormShown = defineModel('isNewCommentFormShown', { type: Boolean });
+  const comments = defineModel('comments', { type: Array });
 
   const name = ref('');
   const email = ref('');

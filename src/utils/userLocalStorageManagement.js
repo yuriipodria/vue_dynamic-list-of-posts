@@ -9,7 +9,7 @@ export const getUser = () => {
 };
 
 export const getUserId = () => {
-  return getUser().id;
+  return getUser()?.id;
 };
 
 export const removeUser = () => {

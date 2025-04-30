@@ -9,7 +9,7 @@
   import { SIDEBAR_MODES } from '../utils/sidebarModes';
   import EditForm from './EditForm.vue';
 
-  const user = defineModel('user');
+  const user = defineModel('user', { type: Object });
   const sidebarMode = ref(SIDEBAR_MODES.NONE);
   const currentPostId = ref(null);
   const title = ref('');
@@ -32,28 +32,28 @@
     <div class="container">
       <div class="tile ancestor">
         <PostsList
-          :posts="posts"
           v-model:title="title"
           v-model:body="body"
-          v-model:sidebarMode="sidebarMode"
-          v-model:currentPostId="currentPostId"
+          v-model:sidebar-mode="sidebarMode"
+          v-model:current-post-id="currentPostId"
+          :posts="posts"
         />
 
         <Sidebar :class="{ 'Sidebar--open': !!sidebarMode }">
           <Post
             v-if="sidebarMode === SIDEBAR_MODES.POST"
-            :post-id="currentPostId"
             v-model:posts="posts"
-            v-model:sidebarMode="sidebarMode"
-            v-model:currentPostId="currentPostId"
+            v-model:sidebar-mode="sidebarMode"
+            v-model:current-post-id="currentPostId"
             v-model:title="title"
             v-model:body="body"
+            :post-id="currentPostId"
           />
 
           <NewPostForm
             v-else-if="sidebarMode === SIDEBAR_MODES.NEW_POST_FORM"
-            v-model:currentPostId="currentPostId"
-            v-model:sidebarMode="sidebarMode"
+            v-model:current-post-id="currentPostId"
+            v-model:sidebar-mode="sidebarMode"
             v-model:posts="posts"
             v-model:title="title"
             v-model:body="body"
@@ -61,11 +61,11 @@
 
           <EditForm
             v-else-if="sidebarMode === SIDEBAR_MODES.EDIT_FORM"
-            :currentPostId="currentPostId"
-            v-model:sidebarMode="sidebarMode"
+            v-model:sidebar-mode="sidebarMode"
             v-model:posts="posts"
             v-model:title="title"
             v-model:body="body"
+            :current-post-id="currentPostId"
           />
         </Sidebar>
       </div>
